@@ -80,5 +80,5 @@ spec:
             chart: 'galaxy'
             targetRevision: 'v6.7.0'
             values:
-              persistence
+              persistence:
                 accessMode: "ReadWriteOnce"
