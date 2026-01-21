@@ -1,0 +1,39 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: galaxy
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: in-cluster
+    namespace: galaxy
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+  source:
+    repoURL: 'https://raw.githubusercontent.com/CloudVE/helm-charts/master/'
+    chart: 'galaxy'
+    targetRevision: 'v6.7.0'
+    helm:
+      releaseName: galaxy
+      valuesObject:
+        persistence:
+          enabled: true
+          accessMode: "ReadWriteOnce"
+          size: 10Gi
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"

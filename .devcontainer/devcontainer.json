@@ -1,0 +1,45 @@
+{
+  "name": "Galaxy ArgoCD Dev Environment",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.makefile-tools",
+        "ms-vscode-remote.remote-containers"
+      ],
+      "settings": {
+        "kubernetes.minikube.showStartWarning": false
+      }
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/kubectl:1": {}
+  },
+  "postCreateCommand": "bash /workspace/.devcontainer/setup.sh",
+  "remoteUser": "root",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+    "source=k3s-data,target=/var/lib/rancher/k3s,type=volume"
+  ],
+  "forwardPorts": [6443, 8080, 8081],
+  "portsAttributes": {
+    "6443": {
+      "label": "Kubernetes API"
+    },
+    "8080": {
+      "label": "ArgoCD UI"
+    },
+    "8081": {
+      "label": "Galaxy"
+    }
+  },
+  "privileged": true
+}

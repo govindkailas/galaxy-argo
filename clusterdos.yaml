@@ -73,11 +73,4 @@ spec:
               resources:
                 requests:
                   nvidia.com/gpu: 8
-          galaxy:
-            enabled: true
-            repoURL: 'https://raw.githubusercontent.com/CloudVE/helm-charts/master/'
-            chart: 'galaxy'
-            targetRevision: 'v6.7.0'
-            values:
-              persistence:
-                accessMode: "ReadWriteOnce"
+
